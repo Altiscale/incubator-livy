@@ -29,7 +29,7 @@ class CreateBatchRequest {
   var driverMemory: Option[String] = None
   var driverCores: Option[Int] = None
   var executorMemory: Option[String] = None
-  var executorCores: Option[Int] = None
+  var executorCores: Option[Double] = None
   var numExecutors: Option[Int] = None
   var archives: List[String] = List()
   var queue: Option[String] = None
