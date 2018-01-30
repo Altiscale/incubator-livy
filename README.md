@@ -70,7 +70,7 @@ rebuild Livy.
 Livy is built using [Apache Maven](http://maven.apache.org). To check out and build Livy, run:
 
 ```
-git clone https://github.com/apache/incubator-livy.git
+git clone -b alti-branch-0.4 git@github.com:Altiscale/incubator-livy.git livy
 cd livy
 mvn package
 ```
