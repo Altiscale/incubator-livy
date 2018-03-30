@@ -20,7 +20,7 @@ package org.apache.livy.server.interactive
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-import org.mockito.Mockito.{never, verify, when}
+import org.mockito.Mockito.{never, verify, when, atLeastOnce}
 import org.scalatest.{FunSpec, Matchers}
 import org.scalatest.concurrent.Eventually._
 import org.scalatest.mock.MockitoSugar.mock
@@ -80,7 +80,7 @@ class SessionHeartbeatSpec extends FunSpec with Matchers {
       n.register(nonExpiredSession)
       n.deleteExpiredSessions()
 
-      verify(expiredSession).stop()
+      verify(expiredSession, atLeastOnce).stop()
       verify(nonExpiredSession, never).stop()
     }
   }
