@@ -1,3 +1,6 @@
+# **OBSOLETE**, USE 0.4.1+ at least if you are looking for this.
+
+
 # Apache Livy
 
 [![Build Status](https://travis-ci.org/apache/incubator-livy.svg?branch=master)](https://travis-ci.org/apache/incubator-livy)
