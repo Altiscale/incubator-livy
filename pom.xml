@@ -116,7 +116,7 @@
     <livy.log.dir>${basedir}/target</livy.log.dir>
 
     <!-- Set this to "true" to skip R tests. -->
-    <skipRTests>false</skipRTests>
+    <skipRTests>true</skipRTests>
 
     <!-- Set this to "true" to skip PySpark3 tests. -->
     <skipPySpark3Tests>false</skipPySpark3Tests>

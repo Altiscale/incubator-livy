@@ -98,6 +98,16 @@ class InteractiveSessionSpec extends FunSpec
     }
   }
 
+  private def ignoreSession(desc: String)(fn: (InteractiveSession) => Unit): Unit = {
+    ignore(desc) {
+      assume(session != null, "No active session.")
+      eventually(timeout(60 seconds), interval(100 millis)) {
+        session.state shouldBe (SessionState.Idle)
+      }
+      fn(session)
+    }
+  }
+
   describe("A spark session") {
 
     it("should get scala version matched jars with livy.repl.jars") {
@@ -173,7 +183,7 @@ class InteractiveSessionSpec extends FunSpec
       session.state should (be(SessionState.Starting) or be(SessionState.Idle))
     }
 
-    withSession("should execute `1 + 2` == 3") { session =>
+    ignoreSession("should execute `1 + 2` == 3") { session =>
       val pyResult = executeStatement("1 + 2", Some("pyspark"))
       pyResult should equal (Extraction.decompose(Map(
         "status" -> "ok",
@@ -196,7 +206,7 @@ class InteractiveSessionSpec extends FunSpec
       )
     }
 
-    withSession("should report an error if accessing an unknown variable") { session =>
+    ignoreSession("should report an error if accessing an unknown variable") { session =>
       val result = executeStatement("x")
       val expectedResult = Extraction.decompose(Map(
         "status" -> "error",
