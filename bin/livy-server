@@ -96,7 +96,7 @@ start_livy_server() {
     LIVY_CLASSPATH="$LIVY_CLASSPATH:$SPARK_CONF_DIR"
   fi
   if [ -n "$HADOOP_CONF_DIR" ]; then
-    LIVY_CLASSPATH="$LIVY_CLASSPATH:$HADOOP_CONF_DIR"
+    LIVY_CLASSPATH="$LIVY_CLASSPATH:/opt/alti-auth-handler-0.3.0/hadoop/*:$HADOOP_CONF_DIR"
   fi
   if [ -n "$YARN_CONF_DIR" ]; then
     LIVY_CLASSPATH="$LIVY_CLASSPATH:$YARN_CONF_DIR"

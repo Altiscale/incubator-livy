@@ -300,6 +300,17 @@ class LivyServer extends Logging {
         }
         server.context.addFilter(holder, "/*", EnumSet.allOf(classOf[DispatcherType]))
         info(s"$customType auth enabled")
+
+      case other =>
+        val holder = new FilterHolder(new AuthenticationFilter())
+        val confValues = livyConf.iterator
+        while (confValues.hasNext) {
+          val item = confValues.next
+          holder.setInitParameter(item.getKey, item.getValue)
+        }
+        holder.setInitParameter(AuthenticationFilter.CONFIG_PREFIX, s"livy.server.auth")
+        server.context.addFilter(holder, "/*", EnumSet.allOf(classOf[DispatcherType]))
+        info(s"Auth enabled using AuthenticationHandler -> $other")
     }
 
     if (livyConf.getBoolean(CSRF_PROTECTION)) {
