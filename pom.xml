@@ -221,7 +221,8 @@
     <module>core/scala-2.11</module>
     <module>coverage</module>
     <module>examples</module>
-    <module>python-api</module>
+<!-- build failed, since we don't use this, comment it out for now -->
+    <!-- module>python-api</module -->
     <module>repl</module>
     <module>repl/scala-2.10</module>
     <module>repl/scala-2.11</module>
