@@ -34,6 +34,7 @@ class InteractiveIT extends BaseIntegrationTestSuite {
   test("basic interactive session") {
     withNewSession(Spark) { s =>
       s.run("val sparkVersion = sc.version").result().left.foreach(info(_))
+      s.run("val scalaVersion = util.Properties.versionString").result().left.foreach(info(_))
       s.run("1+1").verifyResult("res0: Int = 2\n")
       s.run("""sc.getConf.get("spark.executor.instances")""").verifyResult("res1: String = 1\n")
       s.run("val sql = new org.apache.spark.sql.SQLContext(sc)").verifyResult(
@@ -74,8 +75,10 @@ class InteractiveIT extends BaseIntegrationTestSuite {
       // This is important because if YARN app state is killed, Spark history is not archived.
       val appId = s.appId()
       s.stop()
-      val appReport = cluster.yarnClient.getApplicationReport(appId)
-      appReport.getYarnApplicationState() shouldEqual YarnApplicationState.FINISHED
+      eventually(timeout(5 seconds), interval(1 seconds)) {
+        val appReport = cluster.yarnClient.getApplicationReport(appId)
+        appReport.getYarnApplicationState() shouldEqual YarnApplicationState.FINISHED
+      }
     }
   }
 
@@ -87,6 +90,10 @@ class InteractiveIT extends BaseIntegrationTestSuite {
       s.run("from pyspark.sql.types import Row").verifyResult("")
       s.run("x = [Row(age=1, name=u'a'), Row(age=2, name=u'b'), Row(age=3, name=u'c')]")
         .verifyResult("")
+      // Check if we're running with Spark2.
+      if (s.run("spark").result().isLeft) {
+        s.run("sqlContext.sparkSession").verifyResult(".*pyspark\\.sql\\.session\\.SparkSession.*")
+      }
       s.run("%table x").verifyResult(".*headers.*type.*name.*data.*")
       s.run("abcde").verifyError(ename = "NameError", evalue = "name 'abcde' is not defined")
       s.run("raise KeyError, 'foo'").verifyError(ename = "KeyError", evalue = "'foo'")

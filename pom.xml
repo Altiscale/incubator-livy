@@ -22,7 +22,7 @@
 
   <groupId>org.apache.livy</groupId>
   <artifactId>livy-main</artifactId>
-  <version>0.5.0-incubating-SNAPSHOT</version>
+  <version>0.5.1-incubating-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Livy Project Parent POM</name>
   <description>Livy Project</description>
@@ -98,8 +98,8 @@
     <py4j.version>0.9</py4j.version>
     <scala-2.10.version>2.10.4</scala-2.10.version>
     <scala-2.11.version>2.11.8</scala-2.11.version>
-    <scala.binary.version>2.10</scala.binary.version>
-    <scala.version>${scala-2.10.version}</scala.version>
+    <scala.binary.version>2.11</scala.binary.version>
+    <scala.version>${scala-2.11.version}</scala.version>
     <scalatest.version>2.2.4</scalatest.version>
     <scalatra.version>2.3.0</scalatra.version>
     <java.version>1.7</java.version>
@@ -116,7 +116,7 @@
     <livy.log.dir>${basedir}/target</livy.log.dir>
 
     <!-- Set this to "true" to skip R tests. -->
-    <skipRTests>false</skipRTests>
+    <skipRTests>true</skipRTests>
 
     <!-- Set this to "true" to skip PySpark3 tests. -->
     <skipPySpark3Tests>false</skipPySpark3Tests>
@@ -793,6 +793,16 @@
         </plugin>
 
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.0.0-M1</version>
+          <configuration>
+            <doctitle>Livy ${project.version} Java API</doctitle>
+            <windowtitle>Livy ${project.version} JavaDoc</windowtitle>
+          </configuration>
+        </plugin>
+
+        <plugin>
           <groupId>com.googlecode.maven-download-plugin</groupId>
           <artifactId>download-maven-plugin</artifactId>
           <version>1.3.0</version>
@@ -1048,7 +1058,7 @@
             <configuration>
               <resourceBundles>
                 <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
-                <resourceBundle>org.apache.apache.resources:apache-incubator-disclaimer-resource-bundle:1.2-SNAPSHOT</resourceBundle>
+                <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.1</resourceBundle>
               </resourceBundles>
             </configuration>
           </execution>
@@ -1204,6 +1214,27 @@
       </plugins>
     </build>
   </profile>
+
+    <profile>
+      <id>public-docs</id>
+      <activation>
+        <property>
+          <name>public-docs</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <failOnError>true</failOnError>
+              <excludePackageNames>*.test,*.example,*.client,*.annotations,*.rsc</excludePackageNames>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
 
   </profiles>
 
