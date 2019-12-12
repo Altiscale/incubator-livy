@@ -31,12 +31,14 @@ Debian/Ubuntu:
   * openjdk-8-jdk (or Oracle JDK 8)
   * Python 2.7+
   * R 3.x
+  * python3-setuptools
 
 Redhat/CentOS:
   * mvn (from ``maven`` package or maven3 tarball)
   * java-1.8.0-openjdk (or Oracle JDK 8)
   * Python 2.7+
   * R 3.x
+  * python3-setuptools
 
 MacOS:
   * Xcode command line tools
@@ -44,6 +46,7 @@ MacOS:
   * Maven (Homebrew)
   * Python 2.7+
   * R 3.x
+  * python3-setuptools
 
 Required python packages for building Livy:
   * cloudpickle
