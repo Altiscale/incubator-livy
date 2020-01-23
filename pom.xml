@@ -80,7 +80,7 @@
   <properties>
     <hadoop.version>2.7.3</hadoop.version>
     <hadoop.scope>compile</hadoop.scope>
-    <spark.scala-2.11.version>2.2.0</spark.scala-2.11.version>
+    <spark.scala-2.11.version>2.3.2</spark.scala-2.11.version>
     <spark.version>${spark.scala-2.11.version}</spark.version>
     <hive.version>3.0.0</hive.version>
     <commons-codec.version>1.9</commons-codec.version>
@@ -193,7 +193,9 @@
     <module>client-http</module>
     <module>core</module>
     <module>core/scala-2.11</module>
+    <!--
     <module>coverage</module>
+-->
     <module>examples</module>
     <module>python-api</module>
     <module>repl</module>
@@ -204,7 +206,9 @@
     <module>scala-api/scala-2.11</module>
     <module>server</module>
     <module>test-lib</module>
+    <!-- only exluded for xmake 
     <module>integration-test</module>
+    -->
   </modules>
 
   <dependencies>
@@ -998,7 +1002,7 @@
             <configuration>
               <resourceBundles>
                 <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
-                <resourceBundle>org.apache.apache.resources:apache-incubator-disclaimer-resource-bundle:1.2-SNAPSHOT</resourceBundle>
+                <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.1</resourceBundle>
               </resourceBundles>
             </configuration>
           </execution>
@@ -1028,17 +1032,32 @@
       </modules>
     </profile>
 
+    <profile>
+      <id>skip integration-test</id>
+      <modules>
+        <module>integration-test</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>skip coverage-report</id>
+      <modules>
+        <module>coverage</module>
+      </modules>
+    </profile>
+
+
     <!-- Spark version profiles -->
     <profile>
       <id>spark-2.3</id>
       <properties>
-        <spark.scala-2.11.version>2.3.3</spark.scala-2.11.version>
+        <spark.scala-2.11.version>2.3.4</spark.scala-2.11.version>
         <spark.version>${spark.scala-2.11.version}</spark.version>
         <netty.spark-2.11.version>4.1.17.Final</netty.spark-2.11.version>
         <spark.bin.download.url>
-          http://mirrors.advancedhosters.com/apache/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+	  http://mirrors.advancedhosters.com/apache/spark/spark-2.3.4/spark-2.3.4-bin-hadoop2.7.tgz
         </spark.bin.download.url>
-        <spark.bin.name>spark-2.3.3-bin-hadoop2.7</spark.bin.name>
+        <spark.bin.name>spark-2.3.4-bin-hadoop2.7</spark.bin.name>
       </properties>
     </profile>
 
@@ -1050,15 +1069,15 @@
         </property>
       </activation>
       <properties>
-        <spark.scala-2.11.version>2.4.0</spark.scala-2.11.version>
+        <spark.scala-2.11.version>2.4.4</spark.scala-2.11.version>
         <spark.version>${spark.scala-2.11.version}</spark.version>
         <netty.spark-2.11.version>4.1.17.Final</netty.spark-2.11.version>
         <java.version>1.8</java.version>
         <py4j.version>0.10.7</py4j.version>
         <spark.bin.download.url>
-          http://mirrors.advancedhosters.com/apache/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz
+	  http://mirrors.advancedhosters.com/apache/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz
         </spark.bin.download.url>
-        <spark.bin.name>spark-2.4.0-bin-hadoop2.7</spark.bin.name>
+        <spark.bin.name>spark-2.4.4-bin-hadoop2.7</spark.bin.name>
       </properties>
     </profile>
 
