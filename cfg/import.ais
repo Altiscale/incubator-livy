@@ -1,0 +1,6 @@
+imports dslVersion:"1.2", {
+    targetRootDir id: "default", {
+        artifactFile "org.apache:apache-incubator-disclaimer-resource-bundle:jar:1.1"
+        artifactFile "com.cloudera.livy:livy-core_2.11:jar:0.3.0"
+    }
+}
