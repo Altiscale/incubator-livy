@@ -16,8 +16,6 @@ export PATH=$M2_HOME/bin:$JAVA_HOME/bin:$PATH
 # We are setting the alias for python pointing to python3 instead of manipulating the symlink.
 alias python=python3
 
-zypper -n install python3-flake8
-
 curr_dir=`dirname $0`
 curr_dir=`cd $curr_dir; pwd`
 git_hash=""

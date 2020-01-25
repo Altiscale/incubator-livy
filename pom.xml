@@ -197,7 +197,9 @@
     <module>coverage</module>
 -->
     <module>examples</module>
+    <!--
     <module>python-api</module>
+-->
     <module>repl</module>
     <module>repl/scala-2.11</module>
     <module>rsc</module>
@@ -1046,6 +1048,12 @@
       </modules>
     </profile>
 
+    <profile>
+      <id>skip python-api</id>
+      <modules>
+        <module>python-api</module>
+      </modules>
+    </profile>
 
     <!-- Spark version profiles -->
     <profile>
