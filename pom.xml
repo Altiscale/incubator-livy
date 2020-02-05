@@ -199,9 +199,13 @@
     <module>client-http</module>
     <module>core</module>
     <module>core/scala-2.11</module>
+<!--
     <module>coverage</module>
+-->
     <module>examples</module>
+<!--
     <module>python-api</module>
+-->
     <module>repl</module>
     <module>repl/scala-2.11</module>
     <module>rsc</module>
@@ -210,7 +214,9 @@
     <module>scala-api/scala-2.11</module>
     <module>server</module>
     <module>test-lib</module>
+<!-- 
     <module>integration-test</module>
+-->
   </modules>
 
   <dependencies>
@@ -1016,6 +1022,29 @@
   </reporting>
 
   <profiles>
+
+    <profile>
+      <id>skip integration-test</id>
+      <modules>
+        <module>integration-test</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>skip coverage-report</id>
+      <modules>
+        <module>coverage</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>skip python-api</id>
+      <modules>
+        <module>python-api</module>
+      </modules>
+    </profile>
+
+    <!-- Spark version profile -->
     <profile>
       <id>thriftserver</id>
       <modules>
