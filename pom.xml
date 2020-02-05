@@ -219,9 +219,13 @@
     <module>core</module>
     <module>core/scala-2.10</module>
     <module>core/scala-2.11</module>
+<!--
     <module>coverage</module>
+-->
     <module>examples</module>
+<!--
     <module>python-api</module>
+-->
     <module>repl</module>
     <module>repl/scala-2.10</module>
     <module>repl/scala-2.11</module>
@@ -232,7 +236,9 @@
     <module>scala-api/scala-2.11</module>
     <module>server</module>
     <module>test-lib</module>
+<!-- 
     <module>integration-test</module>
+-->
   </modules>
 
   <dependencies>
@@ -1092,6 +1098,28 @@
   </distributionManagement>
 
   <profiles>
+
+    <profile>
+      <id>skip integration-test</id>
+      <modules>
+        <module>integration-test</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>skip coverage-report</id>
+      <modules>
+        <module>coverage</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>skip python-api</id>
+      <modules>
+        <module>python-api</module>
+      </modules>
+    </profile>
+
     <!-- Spark version profile -->
     <profile>
       <id>spark-1.6</id>
