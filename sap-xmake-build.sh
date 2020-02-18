@@ -62,7 +62,8 @@ else
   exit -9
 fi
 
-mvn_cmd="mvn -U -X $spark_profile_str package -DskipTests"
+DATE_STRING=`date +%Y%m%d%H%M%S`
+mvn_cmd="mvn -U -X $spark_profile_str package -DskipTests --log-file mvnbuild_${DATE_STRING}.log"
 echo "$mvn_cmd"
 $mvn_cmd
 
@@ -76,7 +77,6 @@ fi
 ########################
 
 ALTISCALE_RELEASE="${ALTISCALE_RELEASE:-5.0.0}"
-DATE_STRING=`date +%Y%m%d%H%M%S`
 GIT_REPO="https://github.com/Altiscale/incubator-livy"
 
 INSTALL_DIR="${curr_dir}/livy_rpmbuild"
@@ -90,14 +90,14 @@ mkdir -p --mode 0755 ${RPM_DIR}
 echo "Packaging livy rpm with name ${RPM_NAME} with version ${ALTISCALE_RELEASE}-${DATE_STRING}"
 
 export RPM_BUILD_DIR="${INSTALL_DIR}/opt/alti-livy-${LIVY_VERSION}"
-mkdir --mode=0755 -p ${RPM_BUILD_DIR}
-mkdir --mode=0755 -p ${INSTALL_DIR}/etc/livy
-cd ${RPM_BUILD_DIR}
-mkdir --mode=0755 lib
+mkdir --mode=0755 -p ${INSTALL_DIR}/opt
 
-mv ${curr_dir}/assembly/target/livy-${LIVY_VERSION}-incubating-SNAPSHOT-bin.zip ${INSTALL_DIR}/opt/
+cp ${curr_dir}/assembly/target/livy-${LIVY_VERSION}-incubating-SNAPSHOT-bin.zip ${INSTALL_DIR}/opt/
 pushd ${INSTALL_DIR}/opt/
 unzip livy-${LIVY_VERSION}-incubating-SNAPSHOT-bin.zip 
+
+# rm the zip file so that it does not get included in the rpm
+rm livy-${LIVY_VERSION}-incubating-SNAPSHOT-bin.zip
 mv livy-${LIVY_VERSION}-incubating-SNAPSHOT-bin ${RPM_BUILD_DIR}
 popd
 
@@ -118,7 +118,7 @@ fpm --verbose \
 --iteration ${DATE_STRING} \
 --rpm-attr 755,root,root:/opt/livy/bin/livy-server \
 -C ${INSTALL_DIR} \
-opt etc
+opt
 
 mv "${RPM_DIR}${RPM_NAME}-${ALTISCALE_RELEASE}-${DATE_STRING}.x86_64.rpm" "${RPM_DIR}/alti-livy-${LIVY_VERSION}.rpm"
 
