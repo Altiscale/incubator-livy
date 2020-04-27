@@ -7,5 +7,8 @@ branches:
   - Branch: sap-branch-0.6.1-alti
     type: GITHUB_DEV
 
+  - Branch: sap-branch-0.7.0-alti
+    type: GITHUB_DEV
+    
   - Pattern: sap-.*
     type: GITHUB_DEV
