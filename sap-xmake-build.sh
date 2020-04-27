@@ -2,11 +2,11 @@
 
 # This build script is only applicable to Spark without Hadoop and Hive
 
-PACKAGE_BRANCH="sap-branch-0.5.1-alti"
-HADOOP_VERSION="2.7.4"
-SPARK_VERSION="2.1.1"
+PACKAGE_BRANCH="sap-branch-0.7.0-alti"
+HADOOP_VERSION="2.7.7"
+SPARK_VERSION="2.3.2"
 SCALA_VERSION="2.11"
-LIVY_VERSION="0.5.1"
+LIVY_VERSION="0.7.0"
 
 export M2_HOME=/opt/mvn3
 export JAVA_HOME=/opt/java
@@ -57,6 +57,8 @@ elif [[ $SPARK_VERSION == 2.1.* ]] ; then
   spark_profile_str="-Pspark-2.1"
 elif [[ $SPARK_VERSION == 2.2.* ]] ; then
   spark_profile_str="-Pspark-2.2"
+elif [[ $SPARK_VERSION == 2.3.* ]] ; then
+  spark_profile_str="-Pspark-2.3"
 else
   echo "fatal - Unrecognize spark version $SPARK_VERSION, can't continue, exiting, no cleanup"
   exit -9
